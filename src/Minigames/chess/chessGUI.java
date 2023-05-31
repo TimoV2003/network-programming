@@ -57,10 +57,9 @@ public class chessGUI implements ActionListener, KeyListener, WindowFocusListene
 			mt = new MediaTracker(mainApp);
 			
 			for (int i = 0; i < 6; i++)
-			{				
-			
-				imgRed[i] = createImage.getImage(this, "images/" + strRedPieces[i], 5000);
-				imgBlue[i] = createImage.getImage(this, "images/" + strBluePieces[i], 5000);
+			{
+				imgRed[i] = createImage.getImage(this, "/" + strRedPieces[i], 5000);
+				imgBlue[i] = createImage.getImage(this, "/" + strBluePieces[i], 5000);
 				mt.addImage(imgRed[i], 0);
 				mt.addImage(imgBlue[i], 0);
 				

@@ -1,6 +1,7 @@
 package Application;
 
 import Minigames.chess.Chess;
+import Minigames.tictactoe.TicTacToe;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    public Chess chess = new Chess();
+    private final Chess chess = new Chess();
+    private final TicTacToe ticTacToe = new TicTacToe();
     @Override
     public void start(Stage primaryStage) throws Exception {
         ObservableList<String> gameOptions = FXCollections.observableArrayList(
@@ -25,6 +27,8 @@ public class Main extends Application {
                 // TODO: Launch the selected game or perform any other action
                 if(newValue.equals("Chess")){
                     chess.launch();
+                } else if (newValue.equals("Tic Tac Toe")) {
+                    ticTacToe.launch();
                 }
             }
         });

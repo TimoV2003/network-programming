@@ -8,7 +8,7 @@ public class Chess extends JFrame
 		
 	public void launch() //With applications, you have to specify a main method (not with applets)
 	{
-		JFrame.setDefaultLookAndFeelDecorated(true); //Make it look nice
+		//JFrame.setDefaultLookAndFeelDecorated(true); //Make it look nice
         JFrame frame = new JFrame("Chess Game"); //Title
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -19,8 +19,7 @@ public class Chess extends JFrame
         frame.setSize(550,650);
         frame.setResizable(false);
         frame.setVisible(true);  
-        frame.pack();       
-        
+        frame.pack();
     }	
 	
 }
