@@ -1,6 +1,7 @@
 package Application;
 
 import Minigames.chess.Chess;
+import Minigames.connectFour.ConnectFour;
 import Minigames.tictactoe.TicTacToe;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -17,7 +18,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         ObservableList<String> gameOptions = FXCollections.observableArrayList(
                 "Tic Tac Toe",
-                "Chess"
+                "Chess",
+                "Connect 4"
         );
         ListView<String> listView = new ListView<>(gameOptions);
 
@@ -29,6 +31,8 @@ public class Main extends Application {
                     chess.launch();
                 } else if (newValue.equals("Tic Tac Toe")) {
                     ticTacToe.launch();
+                } else if (newValue.equals("Connect 4")) {
+                    ConnectFour connectFour = new ConnectFour();
                 }
             }
         });

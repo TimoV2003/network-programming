@@ -12,6 +12,7 @@ public class TicTacToe extends JFrame {
 
         tttl.tictactoeLogic();
 
+        frame.setSize(5000, 5000);
         frame.setResizable(false);
 
         JFXPanel fxPanel = new JFXPanel(); // Required for JavaFX-Swing integration
