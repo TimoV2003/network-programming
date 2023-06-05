@@ -25,6 +25,7 @@ public class TicTacToeLogic {
         buttons = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             Button button = new Button(" ");
+            button.setStyle("-fx-font-size: 24px; -fx-min-width: 80px; -fx-min-height: 80px;");
             buttons.add(button);
         }
     }
