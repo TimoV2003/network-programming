@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abb1dae4-0495-401a-b383-11d1e5c1710f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Server/GameServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Minigames/Gwent/Card.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Minigames/Gwent/GameBoard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Minigames/Gwent/Gwent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Minigames/Gwent/GwentGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Minigames/Gwent/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +60,7 @@
       <workItem from="1685354554592" duration="3203000" />
       <workItem from="1685358345485" duration="189000" />
       <workItem from="1685358630917" duration="242000" />
+      <workItem from="1685623283430" duration="2932000" />
     </task>
     <servers />
   </component>
