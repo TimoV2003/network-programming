@@ -9,9 +9,12 @@ public class ConnectFourLogic {
     private int currentPlayer;
     private boolean gameOver;
     private int winner;
+    private int[][] buttonColors; // Stores the color for each button
 
     public ConnectFourLogic() {
         board = new int[ROWS][COLS];
+        buttonColors = new int[ROWS][COLS];
+        initializeButtonColors();
     }
 
     public void initializeGame() {
@@ -24,6 +27,15 @@ public class ConnectFourLogic {
         currentPlayer = 1;
         gameOver = false;
         winner = 0;
+        initializeButtonColors();
+    }
+
+    private void initializeButtonColors() {
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                buttonColors[row][col] = 0; // Set initial color to 0 (no color)
+            }
+        }
     }
 
     public boolean isGameOver() {
@@ -47,10 +59,16 @@ public class ConnectFourLogic {
         return -1;
     }
 
+    public boolean isValidMove(int col) {
+        int row = getValidRow(col);
+        return row != -1;
+    }
+
     public void makeMove(int col) {
         int row = getValidRow(col);
         if (row != -1) {
             board[row][col] = currentPlayer;
+
             if (checkWin(row, col)) {
                 gameOver = true;
                 winner = currentPlayer;
@@ -123,5 +141,23 @@ public class ConnectFourLogic {
             }
         }
         return true;
+    }
+
+    public int getButtonColor(int row, int col) {
+        return buttonColors[row][col];
+    }
+
+    public void setButtonColor(int row, int col, int color) {
+        buttonColors[row][col] = color;
+    }
+
+    public void updateButtonColors() {
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                if (board[row][col] != 0) {
+                    buttonColors[row][col] = board[row][col];
+                }
+            }
+        }
     }
 }
