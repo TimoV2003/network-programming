@@ -20,22 +20,20 @@ public class GameServer {
                 Socket clientSocket = serverSocket.accept();
 
                 if (connectedClients < MAX_CLIENTS) {
-                    connectedClients++;
-
                     connections[connectedClients] = new Connection(clientSocket);
 
                     System.out.println("New client connected: " + connections[connectedClients].getNickName() + " | " + clientSocket.getInetAddress().getHostAddress());
 
                     // TODO: Handle the client connection, manage game sessions, and communicate with clients
 
-//                    connectedClients--;
+
+                    connectedClients++;
                 } else {
                     System.out.println("Connection rejected. Maximum number of clients reached.");
                     // TODO: Optionally, you can inform the client that the connection is rejected.
                 }
-
-                clientSocket.close();
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

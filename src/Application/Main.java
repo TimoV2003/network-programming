@@ -25,16 +25,18 @@ public class Main extends Application {
     private BufferedWriter writer;
     Scene gameSelectionScene;
     Scene connectToServerScene;
+    Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         gameSelectionScene = gameSelectionScene();
-        connectToServerScene = connectToServerScene(primaryStage);
+        connectToServerScene = connectToServerScene();
+        this.primaryStage = primaryStage;
 
 
-        primaryStage.setScene(connectToServerScene);
-        primaryStage.setTitle("Minigames App");
-        primaryStage.show();
+        this.primaryStage.setScene(connectToServerScene);
+        this.primaryStage.setTitle("Minigames App");
+        this.primaryStage.show();
     }
 
     public static void main(String[] args) {
@@ -65,7 +67,7 @@ public class Main extends Application {
         return scene;
     }
 
-    private Scene connectToServerScene(Stage primaryStage) {
+    private Scene connectToServerScene() {
         VBox root = new VBox();
 
         HBox hostBox = new HBox();
@@ -88,15 +90,12 @@ public class Main extends Application {
                     Socket socket = new Socket(host, PORT);
                     this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     this.writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                    while (true) {
-                        String line = reader.readLine();
 
-                        if (line != null) {
-                            System.out.println(line);
-//                            writer.write(nicknameField.getText() + "\n");
-                            break;
-                        }
-                    }
+
+                    writer.write(nicknameField.getText() + "\n");
+                    writer.flush();
+
+
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
