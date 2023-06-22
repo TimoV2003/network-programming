@@ -1,20 +1,21 @@
 package Server;
 
+import Packet.Login;
+
 import java.io.*;
 import java.net.Socket;
 
 public class Connection {
     private final Socket socket;
-    private final BufferedReader reader;
-    private final BufferedWriter writer;
+    private ObjectOutputStream objectOutputStream;
+    private ObjectInputStream objectInputStream;
     private String nickName;
 
     public Connection(Socket socket) {
         this.socket = socket;
         try {
-            this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.nickName = this.reader.readLine();
+            this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            this.objectInputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -26,8 +27,11 @@ public class Connection {
         try {
             while (socket.isConnected()) {
                 // todo: server logic here
-
-                writer.flush();
+                Object packet = objectInputStream.readObject();
+                if(packet instanceof Login){
+                    Login login = (Login) packet;
+                    this.nickName = login.getUsername();
+                }
 
             }
         } catch (Exception e) {
@@ -37,6 +41,14 @@ public class Connection {
 
     public String getNickName() {
         return nickName;
+    }
+
+    private void sendPacket(Object packet) {
+        try {
+            objectOutputStream.writeObject(packet);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package Application;
 
 import Minigames.chess.Chess;
+import Packet.Login;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,8 +22,9 @@ public class Main extends Application {
     public Chess chess = new Chess();
     private String host;
     private final int PORT = 8888;
-    private BufferedReader reader;
-    private BufferedWriter writer;
+
+    ObjectInputStream objectInputStream;
+    ObjectOutputStream objectOutputStream;
     Scene gameSelectionScene;
     Scene connectToServerScene;
     Stage primaryStage;
@@ -88,14 +90,10 @@ public class Main extends Application {
             if (host != null) {
                 try {
                     Socket socket = new Socket(host, PORT);
-                    this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    this.writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                    this.objectInputStream = new ObjectInputStream(socket.getInputStream());
+                    this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
-
-                    writer.write(nicknameField.getText() + "\n");
-                    writer.flush();
-
-
+                    this.sendPacket(new Login(nicknameField.getText()));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -110,6 +108,14 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, 300, 300);
         return scene;
+    }
+
+    private void sendPacket(Object packet) {
+        try {
+            objectOutputStream.writeObject(packet);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
