@@ -1,6 +1,8 @@
 package Packet;
 
-public class Login {
+import java.io.Serializable;
+
+public class Login implements Serializable {
     String username;
 
     public Login(String username) {

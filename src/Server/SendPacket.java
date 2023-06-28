@@ -10,12 +10,12 @@ public class SendPacket {
     private final int PORT = 8888;
     private Socket socket;
     public void sendPacket(Object packet) {
-        try {
-            socket = new Socket(host, PORT);
-            objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-            objectOutputStream.writeObject(packet);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+////            socket = new Socket(host, PORT);
+////            objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+////            objectOutputStream.writeObject(packet);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }

@@ -22,8 +22,6 @@ public class GameServer {
                 if (connectedClients < MAX_CLIENTS) {
                     connections[connectedClients] = new Connection(clientSocket);
 
-                    System.out.println("New client connected: " + connections[connectedClients].getNickName() + " | " + clientSocket.getInetAddress().getHostAddress());
-
                     // TODO: Handle the client connection, manage game sessions, and communicate with clients
 
 

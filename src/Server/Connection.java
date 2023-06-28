@@ -11,7 +11,7 @@ public class Connection {
     private ObjectInputStream objectInputStream;
     private String nickName;
 
-    public Connection(Socket socket) {
+    public Connection(Socket socket){
         this.socket = socket;
         try {
             this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -31,6 +31,7 @@ public class Connection {
                 if(packet instanceof Login){
                     Login login = (Login) packet;
                     this.nickName = login.getUsername();
+                    System.out.println("New client connected: " + nickName + " | " + socket.getInetAddress().getHostAddress());
                 }
 
             }

@@ -6,7 +6,6 @@ import Packet.Login;
 import Server.SendPacket;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,26 +20,42 @@ import java.net.Socket;
 
 public class Main extends Application {
 
+    // Games
     public Chess chess = new Chess();
     private TicTacToe ticTacToe = new TicTacToe();
+
+
+    // Connection
     private SendPacket sendPacket = new SendPacket();
     private String host;
     private final int PORT = 8888;
 
-    ObjectInputStream objectInputStream;
-    ObjectOutputStream objectOutputStream;
-    Scene gameSelectionScene;
-    Scene connectToServerScene;
-    Stage primaryStage;
+
+    // Attributes
+    private Game selectedGame;
+
+    // GUI
+    private Label usernameLabel = new Label();
+
+    // Streams
+    private ObjectInputStream objectInputStream;
+    private ObjectOutputStream objectOutputStream;
+
+
+    // Scenes
+    private Stage primaryStage;
+    private Scene connectToServerScene;
+    private Scene gameSelectionScene;
+
+
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        gameSelectionScene = gameSelectionScene();
-        connectToServerScene = connectToServerScene();
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        connectToServerScene = connectToServerScene();
+        gameSelectionScene = gameSelectionScene();
 
-
-        this.primaryStage.setScene(gameSelectionScene);
+        this.primaryStage.setScene(connectToServerScene);
         this.primaryStage.setTitle("Minigames App");
         this.primaryStage.show();
     }
@@ -50,25 +65,41 @@ public class Main extends Application {
     }
 
     private Scene gameSelectionScene() {
-        ObservableList<String> gameOptions = FXCollections.observableArrayList(
-                "Tic Tac Toe",
-                "Chess"
-        );
-        ListView<String> listView = new ListView<>(gameOptions);
+
+        ListView<String> listView = new ListView<>(FXCollections.observableArrayList(
+                Game.TicTacToe.toString(),
+                Game.Chess.toString(),
+                Game.ConnectFour.toString()
+        ));
 
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                System.out.println("Selected game: " + newValue);
-                // TODO: Launch the selected game or perform any other action
-                if (newValue.equals("Chess")) {
-                    chess.launch();
-                } else if(newValue.equals("Tic Tac Toe")){
-                    ticTacToe.launch();
-                }
+                selectedGame = Game.valueOf(newValue);
+                System.out.println(selectedGame);
             }
         });
 
-        VBox root = new VBox(listView);
+        Button playButton = new Button("Play");
+        playButton.setOnAction(e -> {
+            if (selectedGame != null) {
+                // todo: send packet to server
+                switch (selectedGame) {
+                    case Chess:
+                        System.out.println("Play: Chess");
+                        break;
+                    case TicTacToe:
+                        System.out.println("Play: TicTacToe");
+                        break;
+                    case ConnectFour:
+                        System.out.println("Play: ConnectFour");
+                        break;
+                }
+                listView.setDisable(true);
+                playButton.setDisable(true);
+            }
+        });
+
+        VBox root = new VBox(usernameLabel, listView, playButton);
 
         Scene scene = new Scene(root, 300, 300);
         return scene;
@@ -95,10 +126,13 @@ public class Main extends Application {
             if (host != null) {
                 try {
                     Socket socket = new Socket(host, PORT);
-                    this.objectInputStream = new ObjectInputStream(socket.getInputStream());
-                    this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+                    objectInputStream = new ObjectInputStream(socket.getInputStream());
+                    objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
-                    sendPacket.sendPacket(new Login(nicknameField.getText()));
+                    String username = nicknameField.getText();
+                    objectOutputStream.writeObject(new Login(username));
+//                    sendPacket.sendPacket(new Login(username));
+                    usernameLabel.setText("Username: " + username);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
