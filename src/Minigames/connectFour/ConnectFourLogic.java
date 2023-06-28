@@ -1,5 +1,7 @@
 package Minigames.connectFour;
 
+import Minigames.tictactoe.TicTacToeLogic;
+
 public class ConnectFourLogic {
     public static final int ROWS = 6;
     public static final int COLS = 7;

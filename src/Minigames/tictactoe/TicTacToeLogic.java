@@ -12,7 +12,7 @@ public class TicTacToeLogic {
     private String player1;
     private String player2;
     private Label status;
-    private boolean x = true;
+    private boolean xTurn = true;
     private ArrayList<Button> buttons;
     private HBox row1 = new HBox();
     private HBox row2 = new HBox();
@@ -34,14 +34,14 @@ public class TicTacToeLogic {
         for (Button button : buttons) {
             button.setOnAction(e -> {
                 if (button.getText().contains(" ")) {
-                    if (x) {
+                    if (xTurn) {
                         button.setText("X");
                         status.setText(player2 + "'s turn");
                     } else {
                         button.setText("O");
                         status.setText(player1 + "'s turn");
                     }
-                    x = !x;
+                    xTurn = !xTurn;
                     checkGameStatus();
                 }
             });

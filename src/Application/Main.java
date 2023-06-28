@@ -1,7 +1,9 @@
 package Application;
 
 import Minigames.chess.Chess;
+import Minigames.tictactoe.TicTacToe;
 import Packet.Login;
+import Server.SendPacket;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +22,8 @@ import java.net.Socket;
 public class Main extends Application {
 
     public Chess chess = new Chess();
+    private TicTacToe ticTacToe = new TicTacToe();
+    private SendPacket sendPacket = new SendPacket();
     private String host;
     private final int PORT = 8888;
 
@@ -36,7 +40,7 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
 
 
-        this.primaryStage.setScene(connectToServerScene);
+        this.primaryStage.setScene(gameSelectionScene);
         this.primaryStage.setTitle("Minigames App");
         this.primaryStage.show();
     }
@@ -57,8 +61,9 @@ public class Main extends Application {
                 System.out.println("Selected game: " + newValue);
                 // TODO: Launch the selected game or perform any other action
                 if (newValue.equals("Chess")) {
-//                    chess.launch();
-
+                    chess.launch();
+                } else if(newValue.equals("Tic Tac Toe")){
+                    ticTacToe.launch();
                 }
             }
         });
@@ -93,7 +98,7 @@ public class Main extends Application {
                     this.objectInputStream = new ObjectInputStream(socket.getInputStream());
                     this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
-                    this.sendPacket(new Login(nicknameField.getText()));
+                    sendPacket.sendPacket(new Login(nicknameField.getText()));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -108,14 +113,6 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, 300, 300);
         return scene;
-    }
-
-    private void sendPacket(Object packet) {
-        try {
-            objectOutputStream.writeObject(packet);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }
