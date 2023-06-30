@@ -2,6 +2,7 @@ package Minigames.chess;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.ObjectOutputStream;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 
@@ -18,13 +19,13 @@ public class chessGUI implements WindowFocusListener
 	
 	public void chessGUI () {}
 
-	public Container createGUI (JFrame mainApp, String player1Name, String player2Name, String player) {
+	public Container createGUI (JFrame mainApp, String player1Name, String player2Name, String player, ObjectOutputStream objectOutputStream) {
 		
 		JPanel panRoot = new JPanel(new BorderLayout());
 		panRoot.setOpaque(true);
 	    panRoot.setPreferredSize(new Dimension(550,650));
 
-		mainChessBoard = new windowChessBoard(player1Name, player2Name, player);
+		mainChessBoard = new windowChessBoard(player1Name, player2Name, player, objectOutputStream);
 		createImage = new objCreateAppletImage();
 		
 		mainChessBoard.setSize(new Dimension(500, 500));

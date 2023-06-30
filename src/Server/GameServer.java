@@ -36,6 +36,9 @@ public class GameServer {
                                 connections[0].setGameSelected(false);
                                 connections[1].setGameSelected(false);
 
+                                connections[0].setConnections(connections);
+                                connections[1].setConnections(connections);
+
                                 switch (connections[number].getGame()) {
                                     case CHESS:
                                         System.out.println("Chess");

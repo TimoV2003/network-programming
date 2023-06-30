@@ -1,6 +1,7 @@
 package Server;
 
 import CommonAtributes.Game;
+import Packet.ChessPacket;
 import Packet.GameSelection;
 import Packet.Login;
 
@@ -9,8 +10,9 @@ import java.net.Socket;
 
 public class Connection {
     private final Socket socket;
-    private ObjectOutputStream objectOutputStream;
-    private ObjectInputStream objectInputStream;
+    private Connection[] connections;
+    private final ObjectOutputStream objectOutputStream;
+    private final ObjectInputStream objectInputStream;
     private String nickName;
     private Boolean gameSelected = false;
     private Game game;
@@ -41,6 +43,13 @@ public class Connection {
                     System.out.println("Game selected: " + game.getGame().toString());
                     gameSelected = true;
                     this.game = game.getGame();
+                } else if (packet instanceof ChessPacket){
+                    ChessPacket chessPacket = (ChessPacket) packet;
+                    for (Connection connection : connections) {
+                        if (connection != this) {
+                            connection.sendPacket(chessPacket);
+                        }
+                    }
                 }
 
             }
@@ -87,4 +96,7 @@ public class Connection {
         this.gameSelected = gameSelected;
     }
 
+    public void setConnections(Connection[] connections) {
+        this.connections = connections;
+    }
 }

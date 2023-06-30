@@ -181,7 +181,7 @@ public class Main extends Application {
 
                     switch (gameInnit.getGame()){
                         case CHESS:
-                            chess = new Chess(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            chess = new Chess(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player, objectOutputStream);
                             chess.launch();
                             break;
                         case TIC_TAC_TOE:
@@ -194,6 +194,7 @@ public class Main extends Application {
                     }
 
                 } else if (packet instanceof ChessPacket){
+                    ChessPacket chessPacket = (ChessPacket) packet;
 
                 } else if (packet instanceof ConnectFourPacket){
 
