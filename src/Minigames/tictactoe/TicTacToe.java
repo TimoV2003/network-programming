@@ -6,9 +6,21 @@ import javafx.scene.Scene;
 import javax.swing.*;
 
 public class TicTacToe extends JFrame {
+
+    TicTacToeLogic tttl;
+
+    String player1;
+    String player2;
+    String player;
+
+    public TicTacToe(String player1, String player2, String player) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.player = player;
+    }
     public void launch() {
         JFrame frame = new JFrame("Tic Tac Toe");
-        TicTacToeLogic tttl = new TicTacToeLogic("Monke", "Monkey");
+        tttl = new TicTacToeLogic(player1, player2, player);
 
         tttl.tictactoeLogic();
 

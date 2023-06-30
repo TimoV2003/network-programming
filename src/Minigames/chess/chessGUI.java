@@ -22,14 +22,14 @@ public class chessGUI implements ActionListener, KeyListener, WindowFocusListene
 	{
 	}
 	
-	public Container createGUI (JFrame mainApp)
+	public Container createGUI (JFrame mainApp, String player1Name, String player2Name, String player)
 	{
 		
 		JPanel panRoot = new JPanel(new BorderLayout());
 		panRoot.setOpaque(true);
 	    panRoot.setPreferredSize(new Dimension(550,650));
 		
-		mainChessBoard = new windowChessBoard();
+		mainChessBoard = new windowChessBoard(player1Name, player2Name, player);
 		createImage = new objCreateAppletImage();
 		
 		mainChessBoard.setSize(new Dimension(500, 500));

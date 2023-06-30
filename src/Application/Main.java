@@ -2,6 +2,9 @@ package Application;
 
 import Minigames.chess.Chess;
 import Packet.Login;
+import Minigames.connectFour.ConnectFour;
+import Minigames.tictactoe.TicTacToe;
+import Packet.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,15 +22,33 @@ import java.net.Socket;
 
 public class Main extends Application {
 
-    public Chess chess = new Chess();
+    // Games
+
+
+
+    // Connection
     private String host;
     private final int PORT = 8888;
+    private Socket socket;
 
-    ObjectInputStream objectInputStream;
-    ObjectOutputStream objectOutputStream;
-    Scene gameSelectionScene;
-    Scene connectToServerScene;
-    Stage primaryStage;
+
+    // Attributes
+//    private Game selectedGame;
+    private String username;
+
+    // GUI
+    private Label usernameLabel = new Label();
+
+    // Streams
+    private ObjectInputStream objectInputStream;
+    private ObjectOutputStream objectOutputStream;
+
+
+    // Scenes
+    private Stage primaryStage;
+    private Scene connectToServerScene;
+    private Scene gameSelectionScene;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -94,6 +115,13 @@ public class Main extends Application {
                     this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
                     this.sendPacket(new Login(nicknameField.getText()));
+                    Thread t = new Thread(this::receiveData);
+                    t.start();
+
+                    String username = nicknameField.getText();
+                    this.username = username;
+                    objectOutputStream.writeObject(new Login(username));
+                    usernameLabel.setText("Username: " + username);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -114,6 +142,45 @@ public class Main extends Application {
         try {
             objectOutputStream.writeObject(packet);
         } catch (IOException e) {
+
+        }
+    }
+
+    private void receiveData() {
+        try {
+            while (socket.isConnected()) {
+                // todo: server logic here
+                Object packet = objectInputStream.readObject();
+                if(packet instanceof GameInnit){
+                    GameInnit gameInnit = (GameInnit) packet;
+                    String player;
+                    if (gameInnit.getPlayer1Name().equals(username)){
+                        player = "Player 1";
+                    } else {
+                        player = "Player 2";
+                    }
+
+                    switch (gameInnit.getGame()){
+                        case CHESS:
+                            Chess chess = new Chess(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            break;
+                        case TIC_TAC_TOE:
+                            TicTacToe ticTacToe = new TicTacToe(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            break;
+                        case CONNECT_FOUR:
+                            ConnectFour connectFour = new ConnectFour();
+                            break;
+                    }
+
+                } else if (packet instanceof ChessPacket){
+
+                } else if (packet instanceof ConnectFourPacket){
+
+                } else if (packet instanceof TicTacToePacket){
+
+                }
+            }
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

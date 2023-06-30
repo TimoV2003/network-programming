@@ -11,10 +11,12 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 	private final int refreshRate = 5; //Amount of pixels moved before screen is refreshed
 	
 	private Image[][] imgPlayer = new Image[2][6];
-	private String[] strPlayerName = {"Veerle", "Natasja"};
+	private String[] strPlayerName = {"Player 1", "Player 2"};
 	private String strStatusMsg = "";
 	private objCellMatrix cellMatrix = new objCellMatrix();
 	private int currentPlayer = 1, startRow = 0, startColumn = 0, pieceBeingDragged = 0;
+
+	private int thisPlayer;
 	private int startingX = 0, startingY = 0, currentX = 0, currentY = 0, refreshCounter = 0;
 	private boolean firstTime = true, hasWon = false, isDragging = false;
 	
@@ -24,14 +26,27 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 	private objBishop bishopObject = new objBishop();
 	private objQueen queenObject = new objQueen();
 	private objKing kingObject = new objKing();
-	
-	public windowChessBoard ()
+
+
+	public windowChessBoard (String player1Name, String player2Name, String player)
 	{
-		
+
+		strPlayerName[0] = player1Name;
+		strPlayerName[1] = player2Name;
+
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-		
+
+		if (player.equals("Player 1"))
+		{
+			thisPlayer = 1;
+		}
+		else
+		{
+			thisPlayer = 2;
+		}
 	}
+
 	
 	private String getPlayerMsg ()
 	{
@@ -144,7 +159,11 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 	{
 		
 		boolean legalMove = false;
-		
+
+		if (currentPlayer != thisPlayer){
+			legalMove = false;
+		}
+		else
 		if (cellMatrix.getPlayerCell(desRow,desColumn) == currentPlayer)
 		{
 			strStatusMsg = "Can not move onto a piece that is yours";
