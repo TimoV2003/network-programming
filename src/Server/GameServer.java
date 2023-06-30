@@ -11,6 +11,8 @@ public class GameServer {
     private static int connectedClients = 0;
     private static Connection[] connections = new Connection[MAX_CLIENTS];
 
+    private static GameServerState gameServerState = GameServerState.GAME_SELECTION;
+
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
@@ -19,6 +21,7 @@ public class GameServer {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
 
+
                 if (connectedClients < MAX_CLIENTS) {
                     connections[connectedClients] = new Connection(clientSocket);
 
@@ -26,10 +29,30 @@ public class GameServer {
 
 
                     connectedClients++;
-                } else {
-                    System.out.println("Connection rejected. Maximum number of clients reached.");
-                    // TODO: Optionally, you can inform the client that the connection is rejected.
+
                 }
+                if (connectedClients == MAX_CLIENTS) {
+                    System.out.println("Maximum number of clients reached.");
+                    break;
+                }
+            }
+
+            while (true) {
+                switch (gameServerState) {
+                    case GAME_SELECTION:
+
+                        break;
+                    case GAME_CHESS:
+
+                        break;
+                    case GAME_TICTACTOE:
+
+                        break;
+                    case GAME_CONNECTFOUR:
+
+                        break;
+                }
+
             }
 
         } catch (IOException e) {

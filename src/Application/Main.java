@@ -26,7 +26,6 @@ public class Main extends Application {
 
 
     // Connection
-    private SendPacket sendPacket = new SendPacket();
     private String host;
     private final int PORT = 8888;
 
