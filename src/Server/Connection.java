@@ -61,7 +61,7 @@ public class Connection {
         return game;
     }
 
-    private void sendPacket(Object packet) {
+    public void sendPacket(Object packet) {
         try {
             objectOutputStream.writeObject(packet);
         } catch (IOException e) {

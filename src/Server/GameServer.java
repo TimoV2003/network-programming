@@ -40,12 +40,16 @@ public class GameServer {
                     case GAME_SELECTION:
 //                        System.out.println("Game selection");
                         if (connections[0].getGameSelected() && connections[1].getGameSelected()) {
-//                            System.out.println("Both players selected a game.");
+                            System.out.println("Both players selected a game.");
                             int number = (int) Math.round(Math.random());
+                            connections[0].sendPacket(new Packet.GameInnit(connections[0].getNickName(), connections[1].getNickName(), connections[number].getGame()));
+                            connections[1].sendPacket(new Packet.GameInnit(connections[0].getNickName(), connections[1].getNickName(), connections[number].getGame()));
+
                             switch (connections[number].getGame()) {
                                 case CHESS:
                                     System.out.println("Chess");
                                     gameServerState = GameServerState.GAME_CHESS;
+
                                     // todo: start chess game
                                     break;
                                 case TIC_TAC_TOE:
