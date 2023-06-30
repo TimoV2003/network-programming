@@ -2,7 +2,9 @@ package Packet;
 
 import Minigames.chess.objCellMatrix;
 
-public class ChessPacket {
+import java.io.Serializable;
+
+public class ChessPacket implements Serializable {
     public objCellMatrix cellMatrix;
     public int currentPlayer;
 

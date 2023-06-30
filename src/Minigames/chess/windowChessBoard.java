@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import javax.swing.JOptionPane;
 import javax.swing.JDialog;
 
@@ -299,7 +300,7 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 				try	{
 					objectOutputStream.writeObject(new ChessPacket(cellMatrix, currentPlayer));
 				} catch (IOException e) {
-					System.out.println("Error sending move to other player");
+					e.printStackTrace();
 				}
 				
 			}			
