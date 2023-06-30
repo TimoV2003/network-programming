@@ -1,9 +1,8 @@
 package Server;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class GameServer {
     private static int PORT = 8888;
@@ -29,7 +28,6 @@ public class GameServer {
 
 
                     connectedClients++;
-
                 }
                 if (connectedClients == MAX_CLIENTS) {
                     System.out.println("Maximum number of clients reached.");
@@ -40,15 +38,36 @@ public class GameServer {
             while (true) {
                 switch (gameServerState) {
                     case GAME_SELECTION:
-
+//                        System.out.println("Game selection");
+                        if (connections[0].getGameSelected() && connections[1].getGameSelected()) {
+//                            System.out.println("Both players selected a game.");
+                            int number = (int) Math.round(Math.random());
+                            switch (connections[number].getGame()) {
+                                case CHESS:
+                                    System.out.println("Chess");
+                                    gameServerState = GameServerState.GAME_CHESS;
+                                    // todo: start chess game
+                                    break;
+                                case TIC_TAC_TOE:
+                                    System.out.println("TicTacToe");
+                                    gameServerState = GameServerState.GAME_TIC_TAC_TOE;
+                                    // todo: start tic tac toe game
+                                    break;
+                                case CONNECT_FOUR:
+                                    System.out.println("ConnectFour");
+                                    gameServerState = GameServerState.GAME_CONNECT_FOUR;
+                                    // todo: start connect four game
+                                    break;
+                            }
+                        }
                         break;
                     case GAME_CHESS:
 
                         break;
-                    case GAME_TICTACTOE:
+                    case GAME_TIC_TAC_TOE:
 
                         break;
-                    case GAME_CONNECTFOUR:
+                    case GAME_CONNECT_FOUR:
 
                         break;
                 }

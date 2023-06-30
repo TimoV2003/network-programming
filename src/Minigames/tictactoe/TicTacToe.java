@@ -28,7 +28,7 @@ public class TicTacToe extends JFrame {
 
     public void startTicTacToe(TicTacToeLogic tttlogic){
         tttlogic.tictactoeLogic();
-        sendPacket.sendPacket(tttlogic);
+//        sendPacket.sendPacket(tttlogic);
         System.out.println("Package has been sent");
     }
 

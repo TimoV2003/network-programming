@@ -1,9 +1,10 @@
 package Application;
 
+import CommonAtributes.Game;
 import Minigames.chess.Chess;
 import Minigames.tictactoe.TicTacToe;
+import Packet.GameSelection;
 import Packet.Login;
-import Server.SendPacket;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
@@ -47,7 +48,6 @@ public class Main extends Application {
     private Scene gameSelectionScene;
 
 
-
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -66,9 +66,9 @@ public class Main extends Application {
     private Scene gameSelectionScene() {
 
         ListView<String> listView = new ListView<>(FXCollections.observableArrayList(
-                Game.TicTacToe.toString(),
-                Game.Chess.toString(),
-                Game.ConnectFour.toString()
+                Game.TIC_TAC_TOE.toString(),
+                Game.CHESS.toString(),
+                Game.CONNECT_FOUR.toString()
         ));
 
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -82,16 +82,23 @@ public class Main extends Application {
         playButton.setOnAction(e -> {
             if (selectedGame != null) {
                 // todo: send packet to server
-                switch (selectedGame) {
-                    case Chess:
-                        System.out.println("Play: Chess");
-                        break;
-                    case TicTacToe:
-                        System.out.println("Play: TicTacToe");
-                        break;
-                    case ConnectFour:
-                        System.out.println("Play: ConnectFour");
-                        break;
+                try {
+                    switch (selectedGame) {
+                        case CHESS:
+                            System.out.println("Play: Chess");
+                            objectOutputStream.writeObject(new GameSelection(Game.CHESS));
+                            break;
+                        case TIC_TAC_TOE:
+                            System.out.println("Play: TicTacToe");
+                            objectOutputStream.writeObject(new GameSelection(Game.TIC_TAC_TOE));
+                            break;
+                        case CONNECT_FOUR:
+                            System.out.println("Play: ConnectFour");
+                            objectOutputStream.writeObject(new GameSelection(Game.CONNECT_FOUR));
+                            break;
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
                 listView.setDisable(true);
                 playButton.setDisable(true);
@@ -130,7 +137,6 @@ public class Main extends Application {
 
                     String username = nicknameField.getText();
                     objectOutputStream.writeObject(new Login(username));
-//                    sendPacket.sendPacket(new Login(username));
                     usernameLabel.setText("Username: " + username);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);

@@ -1,5 +1,7 @@
 package Server;
 
+import CommonAtributes.Game;
+import Packet.GameSelection;
 import Packet.Login;
 
 import java.io.*;
@@ -10,6 +12,8 @@ public class Connection {
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
     private String nickName;
+    private Boolean gameSelected = false;
+    private Game game;
 
     public Connection(Socket socket){
         this.socket = socket;
@@ -32,6 +36,11 @@ public class Connection {
                     Login login = (Login) packet;
                     this.nickName = login.getUsername();
                     System.out.println("New client connected: " + nickName + " | " + socket.getInetAddress().getHostAddress());
+                } else if (packet instanceof GameSelection){
+                    GameSelection game = (GameSelection) packet;
+                    System.out.println("Game selected: " + game.getGame().toString());
+                    gameSelected = true;
+                    this.game = game.getGame();
                 }
 
             }
@@ -42,6 +51,14 @@ public class Connection {
 
     public String getNickName() {
         return nickName;
+    }
+
+    public Boolean getGameSelected() {
+        return gameSelected;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     private void sendPacket(Object packet) {
