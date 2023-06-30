@@ -25,9 +25,8 @@ import java.net.Socket;
 public class Main extends Application {
 
     // Games
-    // todo: fix deze games
-//    public Chess chess = new Chess();
-//    private TicTacToe ticTacToe = new TicTacToe();
+    public Chess chess;
+    private TicTacToe ticTacToe;
 
 
     // Connection
@@ -182,10 +181,12 @@ public class Main extends Application {
 
                     switch (gameInnit.getGame()){
                         case CHESS:
-                            Chess chess = new Chess(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            chess = new Chess(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            chess.launch();
                             break;
                         case TIC_TAC_TOE:
-                            TicTacToe ticTacToe = new TicTacToe(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            ticTacToe = new TicTacToe(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            ticTacToe.launch();
                             break;
                         case CONNECT_FOUR:
                             ConnectFour connectFour = new ConnectFour();

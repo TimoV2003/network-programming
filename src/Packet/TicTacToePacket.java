@@ -8,7 +8,6 @@ public class TicTacToePacket {
     boolean xTurn;
     ArrayList<Button> buttons;
 
-
     public TicTacToePacket(boolean xTurn, ArrayList<Button> buttons) {
         this.xTurn = xTurn;
         this.buttons = buttons;

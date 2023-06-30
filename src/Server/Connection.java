@@ -45,10 +45,32 @@ public class Connection {
 
             }
         } catch (Exception e) {
+            close();
+//            throw new RuntimeException(e);
+        }
+    }
+
+    public void sendPacket(Object packet) {
+        try {
+            System.out.println("Sending packet: " + packet.toString());
+            objectOutputStream.writeObject(packet);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public void close() {
+        try {
+            if (objectOutputStream != null)
+                objectOutputStream.close();
+            if (objectInputStream != null)
+                objectInputStream.close();
+            if (socket != null)
+                socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public String getNickName() {
         return nickName;
     }
@@ -61,12 +83,8 @@ public class Connection {
         return game;
     }
 
-    public void sendPacket(Object packet) {
-        try {
-            objectOutputStream.writeObject(packet);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void setGameSelected(Boolean gameSelected) {
+        this.gameSelected = gameSelected;
     }
 
 }

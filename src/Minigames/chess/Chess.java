@@ -31,11 +31,5 @@ public class Chess extends JFrame
         frame.setVisible(true);  
         frame.pack();
     }
-
-    public static void main(String[] args)
-    {
-    	Chess chess = new Chess();
-    	chess.launch();
-    }
 	
 }

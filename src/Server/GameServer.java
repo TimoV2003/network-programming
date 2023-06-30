@@ -45,6 +45,9 @@ public class GameServer {
                             connections[0].sendPacket(new Packet.GameInnit(connections[0].getNickName(), connections[1].getNickName(), connections[number].getGame()));
                             connections[1].sendPacket(new Packet.GameInnit(connections[0].getNickName(), connections[1].getNickName(), connections[number].getGame()));
 
+                            connections[0].setGameSelected(false);
+                            connections[1].setGameSelected(false);
+
                             switch (connections[number].getGame()) {
                                 case CHESS:
                                     System.out.println("Chess");
@@ -74,6 +77,12 @@ public class GameServer {
                     case GAME_CONNECT_FOUR:
 
                         break;
+                }
+
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
             }
