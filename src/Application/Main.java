@@ -3,6 +3,9 @@ package Application;
 import CommonAtributes.Game;
 import Minigames.chess.Chess;
 import Minigames.tictactoe.TicTacToe;
+import Minigames.connectFour.ConnectFour;
+import Minigames.tictactoe.TicTacToe;
+import Packet.*;
 import Packet.GameSelection;
 import Packet.Login;
 import javafx.application.Application;
@@ -22,17 +25,22 @@ import java.net.Socket;
 public class Main extends Application {
 
     // Games
-    public Chess chess = new Chess();
-    private TicTacToe ticTacToe = new TicTacToe();
+    // todo: fix deze games
+//    public Chess chess = new Chess();
+//    private TicTacToe ticTacToe = new TicTacToe();
 
 
     // Connection
     private String host;
     private final int PORT = 8888;
+    private Socket socket;
+
 
 
     // Attributes
     private Game selectedGame;
+    private String username;
+
 
     // GUI
     private Label usernameLabel = new Label();
@@ -131,11 +139,15 @@ public class Main extends Application {
             host = hostField.getText();
             if (host != null) {
                 try {
-                    Socket socket = new Socket(host, PORT);
+                    socket = new Socket(host, PORT);
                     objectInputStream = new ObjectInputStream(socket.getInputStream());
                     objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
+                    Thread t = new Thread(this::receiveData);
+                    t.start();
+
                     String username = nicknameField.getText();
+                    this.username = username;
                     objectOutputStream.writeObject(new Login(username));
                     usernameLabel.setText("Username: " + username);
                 } catch (IOException ex) {
@@ -152,6 +164,45 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, 300, 300);
         return scene;
+    }
+
+    private void receiveData() {
+        try {
+            while (socket.isConnected()) {
+                // todo: server logic here
+                Object packet = objectInputStream.readObject();
+                if(packet instanceof GameInnit){
+                    GameInnit gameInnit = (GameInnit) packet;
+                    String player;
+                    if (gameInnit.getPlayer1Name().equals(username)){
+                        player = "Player 1";
+                    } else {
+                        player = "Player 2";
+                    }
+
+                    switch (gameInnit.getGame()){
+                        case CHESS:
+                            Chess chess = new Chess(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            break;
+                        case TIC_TAC_TOE:
+                            TicTacToe ticTacToe = new TicTacToe(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            break;
+                        case CONNECT_FOUR:
+                            ConnectFour connectFour = new ConnectFour();
+                            break;
+                    }
+
+                } else if (packet instanceof ChessPacket){
+
+                } else if (packet instanceof ConnectFourPacket){
+
+                } else if (packet instanceof TicTacToePacket){
+
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
