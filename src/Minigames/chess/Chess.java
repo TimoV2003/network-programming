@@ -11,6 +11,8 @@ public class Chess extends JFrame
     String player;
     ObjectOutputStream objectOutputStream;
 
+    chessGUI chessWindow = new chessGUI();
+
     public Chess(String player1Name, String player2Name, String player, ObjectOutputStream objectOutputStream)
     {
         this.player1Name = player1Name;
@@ -25,7 +27,7 @@ public class Chess extends JFrame
         JFrame frame = new JFrame("Chess Game"); //Title
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        chessGUI chessWindow = new chessGUI();
+
         frame.setContentPane(chessWindow.createGUI(frame, player1Name, player2Name, player, objectOutputStream));
         frame.addWindowFocusListener(chessWindow);
         
@@ -34,5 +36,8 @@ public class Chess extends JFrame
         frame.setVisible(true);  
         frame.pack();
     }
-	
+
+    public chessGUI getChessGUI() {
+        return chessWindow;
+    }
 }

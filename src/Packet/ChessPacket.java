@@ -11,4 +11,11 @@ public class ChessPacket {
         this.currentPlayer = currentPlayer;
     }
 
+    public objCellMatrix getCellMatrix() {
+        return cellMatrix;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
 }

@@ -96,5 +96,8 @@ public class chessGUI implements WindowFocusListener
 	}
 	
 	public void windowLostFocus (WindowEvent e) {}
-	
+
+	public windowChessBoard getMainChessBoard() {
+		return mainChessBoard;
+	}
 }

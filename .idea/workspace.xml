@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abb1dae4-0495-401a-b383-11d1e5c1710f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Packet/ChessPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Packet/ConnectFourPacket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Packet/GameInnit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Packet/TicTacToePacket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/network_programming/Application/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/network_programming/Application/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/network_programming/Minigames/chess/Chess.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/network_programming/Minigames/chess/Chess.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/network_programming/Server/GameServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/network_programming/Server/GameServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Minigames/chess/Chess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Minigames/chess/Chess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Minigames/chess/chessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Minigames/chess/chessGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Minigames/chess/windowChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Minigames/chess/windowChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Minigames/tictactoe/TicTacToeLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Minigames/tictactoe/TicTacToeLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Packet/ChessPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Packet/ChessPacket.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

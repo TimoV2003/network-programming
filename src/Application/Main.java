@@ -4,7 +4,6 @@ import CommonAtributes.Game;
 import Minigames.chess.Chess;
 import Minigames.tictactoe.TicTacToe;
 import Minigames.connectFour.ConnectFour;
-import Minigames.tictactoe.TicTacToe;
 import Packet.*;
 import Packet.GameSelection;
 import Packet.Login;
@@ -195,6 +194,8 @@ public class Main extends Application {
 
                 } else if (packet instanceof ChessPacket){
                     ChessPacket chessPacket = (ChessPacket) packet;
+                    chess.getChessGUI().getMainChessBoard().setCellMatrix(chessPacket.getCellMatrix());
+                    chess.getChessGUI().getMainChessBoard().setCurrentPlayer(chessPacket.getCurrentPlayer());
 
                 } else if (packet instanceof ConnectFourPacket){
 

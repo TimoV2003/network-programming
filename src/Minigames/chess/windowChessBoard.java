@@ -460,5 +460,12 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 	{
 		repaint();		
 	}
-				
+
+	public void setCellMatrix(objCellMatrix cellMatrix) {
+		this.cellMatrix = cellMatrix;
+	}
+
+	public void setCurrentPlayer(int currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
 }
