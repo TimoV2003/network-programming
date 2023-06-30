@@ -22,11 +22,11 @@ public class GameServer {
                     Socket clientSocket = serverSocket.accept();
                     connections[connectedClients] = new Connection(clientSocket);
                     connectedClients++;
-                    
+
                 } else {
                     switch (gameServerState) {
                         case GAME_SELECTION:
-                        System.out.println("Game selection");
+//                        System.out.println("Game selection");
                             if (connections[0].getGameSelected() && connections[1].getGameSelected()) {
                                 System.out.println("Both players selected a game.");
                                 int number = (int) Math.round(Math.random());

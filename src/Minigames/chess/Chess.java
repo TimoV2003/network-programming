@@ -20,7 +20,7 @@ public class Chess extends JFrame
 	{
 		//JFrame.setDefaultLookAndFeelDecorated(true); //Make it look nice
         JFrame frame = new JFrame("Chess Game"); //Title
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         chessGUI chessWindow = new chessGUI();
         frame.setContentPane(chessWindow.createGUI(frame, player1Name, player2Name, player));

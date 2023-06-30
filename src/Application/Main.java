@@ -202,7 +202,21 @@ public class Main extends Application {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            close();
+//            throw new RuntimeException(e);
+        }
+    }
+
+    public void close() {
+        try {
+            if (objectOutputStream != null)
+                objectOutputStream.close();
+            if (objectInputStream != null)
+                objectInputStream.close();
+            if (socket != null)
+                socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
