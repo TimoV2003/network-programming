@@ -15,6 +15,7 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 	private String strStatusMsg = "";
 	private objCellMatrix cellMatrix = new objCellMatrix();
 	private int currentPlayer = 1, startRow = 0, startColumn = 0, pieceBeingDragged = 0;
+	private int thisplayer = 1;
 	private int startingX = 0, startingY = 0, currentX = 0, currentY = 0, refreshCounter = 0;
 	private boolean firstTime = true, hasWon = false, isDragging = false;
 	
@@ -24,7 +25,8 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 	private objBishop bishopObject = new objBishop();
 	private objQueen queenObject = new objQueen();
 	private objKing kingObject = new objKing();
-	
+
+
 	public windowChessBoard ()
 	{
 		
@@ -144,7 +146,11 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 	{
 		
 		boolean legalMove = false;
-		
+
+		if (currentPlayer != thisplayer){
+			legalMove = false;
+		}
+		else
 		if (cellMatrix.getPlayerCell(desRow,desColumn) == currentPlayer)
 		{
 			strStatusMsg = "Can not move onto a piece that is yours";
