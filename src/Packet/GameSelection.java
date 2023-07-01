@@ -1,7 +1,5 @@
 package Packet;
 
-import CommonAtributes.Game;
-
 import java.io.Serializable;
 
 public class GameSelection implements Serializable {

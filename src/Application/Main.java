@@ -1,6 +1,6 @@
 package Application;
 
-import CommonAtributes.Game;
+import Packet.Game;
 import Minigames.chess.Chess;
 import Minigames.tictactoe.TicTacToe;
 import Minigames.connectFour.ConnectFour;
@@ -32,7 +32,6 @@ public class Main extends Application {
     private String host;
     private final int PORT = 8888;
     private Socket socket;
-
 
 
     // Attributes

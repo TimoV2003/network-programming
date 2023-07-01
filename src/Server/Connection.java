@@ -1,6 +1,6 @@
 package Server;
 
-import CommonAtributes.Game;
+import Packet.Game;
 import Packet.ChessPacket;
 import Packet.GameSelection;
 import Packet.Login;
@@ -13,11 +13,12 @@ public class Connection {
     private Connection[] connections;
     private final ObjectOutputStream objectOutputStream;
     private final ObjectInputStream objectInputStream;
+    private Thread t;
     private String nickName;
     private Boolean gameSelected = false;
     private Game game;
 
-    public Connection(Socket socket){
+    public Connection(Socket socket) {
         this.socket = socket;
         try {
             this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -25,7 +26,7 @@ public class Connection {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Thread t = new Thread(this::receiveData);
+        t = new Thread(this::receiveData);
         t.start();
     }
 
@@ -34,16 +35,16 @@ public class Connection {
             while (socket.isConnected()) {
                 // todo: server logic here
                 Object packet = objectInputStream.readObject();
-                if(packet instanceof Login){
+                if (packet instanceof Login) {
                     Login login = (Login) packet;
                     this.nickName = login.getUsername();
                     System.out.println("New client connected: " + nickName + " | " + socket.getInetAddress().getHostAddress());
-                } else if (packet instanceof GameSelection){
+                } else if (packet instanceof GameSelection) {
                     GameSelection game = (GameSelection) packet;
                     System.out.println("Game selected: " + game.getGame().toString());
                     gameSelected = true;
                     this.game = game.getGame();
-                } else if (packet instanceof ChessPacket){
+                } else if (packet instanceof ChessPacket) {
                     ChessPacket chessPacket = (ChessPacket) packet;
                     for (Connection connection : connections) {
                         if (connection != this) {
@@ -51,7 +52,6 @@ public class Connection {
                         }
                     }
                 }
-
             }
         } catch (Exception e) {
             close();
@@ -76,10 +76,13 @@ public class Connection {
                 objectInputStream.close();
             if (socket != null)
                 socket.close();
+            if (t != null)
+                t.interrupt();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public String getNickName() {
         return nickName;
     }

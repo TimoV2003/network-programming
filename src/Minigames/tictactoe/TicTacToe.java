@@ -1,8 +1,6 @@
 package Minigames.tictactoe;
 
-import Server.SendPacket;
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.Scene;
 
 import javax.swing.*;
 

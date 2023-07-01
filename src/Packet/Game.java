@@ -1,4 +1,4 @@
-package CommonAtributes;
+package Packet;
 
 public enum Game {
     CHESS,

@@ -10,7 +10,7 @@ public class GameServer {
     private static int connectedClients = 0;
     private static Connection[] connections = new Connection[MAX_CLIENTS];
 
-    private static GameServerState gameServerState = GameServerState.GAME_SELECTION;
+    private static Boolean gameServerState = true;
 
     public static void main(String[] args) {
         try {
@@ -24,50 +24,22 @@ public class GameServer {
                     connectedClients++;
 
                 } else {
-                    switch (gameServerState) {
-                        case GAME_SELECTION:
+                    if (gameServerState) {
 //                        System.out.println("Game selection");
-                            if (connections[0].getGameSelected() && connections[1].getGameSelected()) {
-                                System.out.println("Both players selected a game.");
-                                int number = (int) Math.round(Math.random());
-                                connections[0].sendPacket(new Packet.GameInnit(connections[0].getNickName(), connections[1].getNickName(), connections[number].getGame()));
-                                connections[1].sendPacket(new Packet.GameInnit(connections[0].getNickName(), connections[1].getNickName(), connections[number].getGame()));
+                        if (connections[0].getGameSelected() && connections[1].getGameSelected()) {
+                            System.out.println("Both players selected a game.");
+                            int number = (int) Math.round(Math.random());
+                            connections[0].sendPacket(new Packet.GameInnit(connections[0].getNickName(), connections[1].getNickName(), connections[number].getGame()));
+                            connections[1].sendPacket(new Packet.GameInnit(connections[0].getNickName(), connections[1].getNickName(), connections[number].getGame()));
 
-                                connections[0].setGameSelected(false);
-                                connections[1].setGameSelected(false);
+                            connections[0].setGameSelected(false);
+                            connections[1].setGameSelected(false);
 
-                                connections[0].setConnections(connections);
-                                connections[1].setConnections(connections);
+                            connections[0].setConnections(connections);
+                            connections[1].setConnections(connections);
 
-                                switch (connections[number].getGame()) {
-                                    case CHESS:
-                                        System.out.println("Chess");
-                                        gameServerState = GameServerState.GAME_CHESS;
-
-                                        // todo: start chess game
-                                        break;
-                                    case TIC_TAC_TOE:
-                                        System.out.println("TicTacToe");
-                                        gameServerState = GameServerState.GAME_TIC_TAC_TOE;
-                                        // todo: start tic tac toe game
-                                        break;
-                                    case CONNECT_FOUR:
-                                        System.out.println("ConnectFour");
-                                        gameServerState = GameServerState.GAME_CONNECT_FOUR;
-                                        // todo: start connect four game
-                                        break;
-                                }
-                            }
-                            break;
-                        case GAME_CHESS:
-
-                            break;
-                        case GAME_TIC_TAC_TOE:
-
-                            break;
-                        case GAME_CONNECT_FOUR:
-
-                            break;
+                            gameServerState = false;
+                        }
                     }
 
                     try {
