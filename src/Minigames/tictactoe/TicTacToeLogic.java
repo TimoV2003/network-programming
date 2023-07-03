@@ -7,6 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TicTacToeLogic {
     private String player1;
@@ -79,30 +81,26 @@ public class TicTacToeLogic {
     }
 
     private boolean checkWinCondition(String[] positions, String player) {
-        // Check rows
-        for (int i = 0; i < 9; i += 3) {
-            if (positions[i].equals(player) && positions[i + 1].equals(player) && positions[i + 2].equals(player)) {
-                return true;
-            }
-        }
+        List<List<String>> lines = new ArrayList<>();
 
-        // Check columns
-        for (int i = 0; i < 3; i++) {
-            if (positions[i].equals(player) && positions[i + 3].equals(player) && positions[i + 6].equals(player)) {
-                return true;
-            }
-        }
+        // Add rows
+        lines.add(Arrays.asList(positions[0], positions[1], positions[2]));
+        lines.add(Arrays.asList(positions[3], positions[4], positions[5]));
+        lines.add(Arrays.asList(positions[6], positions[7], positions[8]));
 
-        // Check diagonals
-        if (positions[0].equals(player) && positions[4].equals(player) && positions[8].equals(player)) {
-            return true;
-        }
-        if (positions[2].equals(player) && positions[4].equals(player) && positions[6].equals(player)) {
-            return true;
-        }
+        // Add columns
+        lines.add(Arrays.asList(positions[0], positions[3], positions[6]));
+        lines.add(Arrays.asList(positions[1], positions[4], positions[7]));
+        lines.add(Arrays.asList(positions[2], positions[5], positions[8]));
 
-        return false;
+        // Add diagonals
+        lines.add(Arrays.asList(positions[0], positions[4], positions[8]));
+        lines.add(Arrays.asList(positions[2], positions[4], positions[6]));
+
+        return lines.stream()
+                .anyMatch(line -> line.stream().allMatch(cell -> cell.equals(player)));
     }
+
 
     private boolean isBoardFull(String[] positions) {
         for (String position : positions) {

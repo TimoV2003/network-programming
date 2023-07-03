@@ -3,7 +3,6 @@ package Application;
 import Packet.Game;
 import Minigames.chess.Chess;
 import Minigames.tictactoe.TicTacToe;
-import Minigames.connectFour.ConnectFour;
 import Packet.*;
 import Packet.GameSelection;
 import Packet.Login;
@@ -72,8 +71,7 @@ public class Main extends Application {
 
         ListView<String> listView = new ListView<>(FXCollections.observableArrayList(
                 Game.TIC_TAC_TOE.toString(),
-                Game.CHESS.toString(),
-                Game.CONNECT_FOUR.toString()
+                Game.CHESS.toString()
         ));
 
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -96,10 +94,6 @@ public class Main extends Application {
                         case TIC_TAC_TOE:
                             System.out.println("Play: TicTacToe");
                             objectOutputStream.writeObject(new GameSelection(Game.TIC_TAC_TOE));
-                            break;
-                        case CONNECT_FOUR:
-                            System.out.println("Play: ConnectFour");
-                            objectOutputStream.writeObject(new GameSelection(Game.CONNECT_FOUR));
                             break;
                     }
                 } catch (IOException ex) {
@@ -186,17 +180,12 @@ public class Main extends Application {
                             ticTacToe = new TicTacToe(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
                             ticTacToe.launch();
                             break;
-                        case CONNECT_FOUR:
-                            ConnectFour connectFour = new ConnectFour();
-                            break;
                     }
 
                 } else if (packet instanceof ChessPacket){
                     ChessPacket chessPacket = (ChessPacket) packet;
                     chess.getChessGUI().getMainChessBoard().setCellMatrix(chessPacket.getCellMatrix());
                     chess.getChessGUI().getMainChessBoard().setCurrentPlayer(chessPacket.getCurrentPlayer());
-
-                } else if (packet instanceof ConnectFourPacket){
 
                 } else if (packet instanceof TicTacToePacket){
 
