@@ -6,10 +6,10 @@ import java.io.ObjectOutputStream;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 
-public class chessGUI implements WindowFocusListener {
+public class ChessGUI implements WindowFocusListener {
 
-    private windowChessBoard mainChessBoard;
-    private objCreateAppletImage createImage;
+    private WindowChessBoard mainChessBoard;
+    private ObjCreateAppletImage createImage;
     private JLabel lblPlayerOne, lblPlayerTwo;
     //	private String[] strRedPieces = {"redPawn.gif","redRock.gif","redKnight.gif","redBishop.gif","redQueen.gif","redKing.gif"};
     private String[] strRedPieces = {"whitePawn.gif", "whiteRock.gif", "whiteKnight.gif", "whiteBishop.gif", "whiteQueen.gif", "whiteKing.gif"};
@@ -27,8 +27,8 @@ public class chessGUI implements WindowFocusListener {
         panRoot.setOpaque(true);
         panRoot.setPreferredSize(new Dimension(550, 650));
 
-        mainChessBoard = new windowChessBoard(player1Name, player2Name, player, objectOutputStream);
-        createImage = new objCreateAppletImage();
+        mainChessBoard = new WindowChessBoard(player1Name, player2Name, player, objectOutputStream);
+        createImage = new ObjCreateAppletImage();
 
         mainChessBoard.setSize(new Dimension(500, 500));
         mainChessBoard.newGame();
@@ -100,7 +100,7 @@ public class chessGUI implements WindowFocusListener {
     public void windowLostFocus(WindowEvent e) {
     }
 
-    public windowChessBoard getMainChessBoard() {
+    public WindowChessBoard getMainChessBoard() {
         return mainChessBoard;
     }
 }

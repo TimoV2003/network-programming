@@ -4,8 +4,9 @@ import javafx.embed.swing.JFXPanel;
 
 import javax.swing.*;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class TicTacToe extends JFrame {
+public class TicTacToe extends JFrame implements Serializable {
 
     TicTacToeLogic tttl;
 
@@ -41,13 +42,6 @@ public class TicTacToe extends JFrame {
 
     public void startTicTacToe(TicTacToeLogic tttlogic){
         tttlogic.tictactoeLogic();
-//        sendPacket.sendPacket(tttlogic);
-        System.out.println("Package has been sent");
-    }
-
-    public void setTttl(TicTacToeLogic tttl) {
-        this.tttl = tttl;
-        startTicTacToe(this.tttl);
     }
 
     public TicTacToeLogic getTicTacToeLogic() {

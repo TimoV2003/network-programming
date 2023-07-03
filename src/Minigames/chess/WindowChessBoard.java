@@ -6,33 +6,32 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import javax.swing.JOptionPane;
 import javax.swing.JDialog;
 
-public class windowChessBoard extends objChessBoard implements MouseListener, MouseMotionListener {
+public class WindowChessBoard extends ObjChessBoard implements MouseListener, MouseMotionListener {
 
     private final int refreshRate = 4; //Amount of pixels moved before screen is refreshed
 
     private Image[][] imgPlayer = new Image[2][6];
     private String[] strPlayerName = {"Player 1", "Player 2"};
     private String strStatusMsg = "";
-    private objCellMatrix cellMatrix = new objCellMatrix();
+    private ObjCellMatrix cellMatrix = new ObjCellMatrix();
     private ObjectOutputStream objectOutputStream;
     private int currentPlayer = 1, startRow = 0, startColumn = 0, pieceBeingDragged = 0;
     private int thisPlayer;
     private int startingX = 0, startingY = 0, currentX = 0, currentY = 0, refreshCounter = 0;
     private boolean firstTime = true, hasWon = false, isDragging = false;
 
-    private objPawn pawnObject = new objPawn();
-    private objRock rockObject = new objRock();
-    private objKnight knightObject = new objKnight();
-    private objBishop bishopObject = new objBishop();
-    private objQueen queenObject = new objQueen();
-    private objKing kingObject = new objKing();
+    private ObjPawn pawnObject = new ObjPawn();
+    private ObjRock rockObject = new ObjRock();
+    private ObjKnight knightObject = new ObjKnight();
+    private ObjBishop bishopObject = new ObjBishop();
+    private ObjQueen queenObject = new ObjQueen();
+    private ObjKing kingObject = new ObjKing();
 
 
-    public windowChessBoard(String player1Name, String player2Name, String player, ObjectOutputStream objectOutputStream) {
+    public WindowChessBoard(String player1Name, String player2Name, String player, ObjectOutputStream objectOutputStream) {
 
         strPlayerName[0] = player1Name;
         strPlayerName[1] = player2Name;
@@ -92,7 +91,7 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 
         for (int i = 0; i < vecPaintInstructions.size(); i++) {
 
-            currentInstruction = (objPaintInstruction) vecPaintInstructions.elementAt(i);
+            currentInstruction = (ObjPaintInstruction) vecPaintInstructions.elementAt(i);
             int paintStartRow = currentInstruction.getStartRow();
             int paintStartColumn = currentInstruction.getStartColumn();
             int rowCells = currentInstruction.getRowCells();
@@ -254,6 +253,13 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
             if (cellMatrix.checkWinner(currentPlayer)) {
 
                 hasWon = true;
+
+                try {
+                    objectOutputStream.writeObject(new ChessPacket(cellMatrix, currentPlayer));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 strStatusMsg = getPlayerMsg();
 
             } else {
@@ -314,10 +320,10 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
 
     private void updatePaintInstructions(int desRow, int desColumn) {
 
-        currentInstruction = new objPaintInstruction(startRow, startColumn, 1);
+        currentInstruction = new ObjPaintInstruction(startRow, startColumn, 1);
         vecPaintInstructions.addElement(currentInstruction);
 
-        currentInstruction = new objPaintInstruction(desRow, desColumn);
+        currentInstruction = new ObjPaintInstruction(desRow, desColumn);
         vecPaintInstructions.addElement(currentInstruction);
 
     }
@@ -415,7 +421,7 @@ public class windowChessBoard extends objChessBoard implements MouseListener, Mo
         repaint();
     }
 
-    public void setCellMatrix(objCellMatrix cellMatrix) {
+    public void setCellMatrix(ObjCellMatrix cellMatrix) {
         this.cellMatrix = cellMatrix;
     }
 

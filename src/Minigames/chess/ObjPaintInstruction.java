@@ -1,17 +1,17 @@
 package Minigames.chess;
 
-public class objPaintInstruction {
+public class ObjPaintInstruction {
 
     private int startRow = 0, startColumn = 0, rowCells = 0, columnCells = 0;
 
-    public objPaintInstruction() {
+    public ObjPaintInstruction() {
     }
 
-    public objPaintInstruction(int firstRow, int firstColumn) {
+    public ObjPaintInstruction(int firstRow, int firstColumn) {
         calculateRedrawCells(firstRow, firstColumn);
     }
 
-    public objPaintInstruction(int startRow, int startColumn, int numCells) {
+    public ObjPaintInstruction(int startRow, int startColumn, int numCells) {
 
         this.startRow = startRow;
         this.startColumn = startColumn;

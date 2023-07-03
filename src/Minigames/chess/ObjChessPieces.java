@@ -1,12 +1,12 @@
 package Minigames.chess;
 
-public class objChessPieces {
+public class ObjChessPieces {
 
     protected int finalDesRow = 0;
     protected int finalDesColumn = 0;
     protected String strErrorMsg = "";
 
-    public objChessPieces() {
+    public ObjChessPieces() {
     }
 
     //Checks the cell to make sure it is empty

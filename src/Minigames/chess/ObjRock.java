@@ -1,6 +1,6 @@
 package Minigames.chess;
 
-public class objRock extends objChessPieces {
+public class ObjRock extends ObjChessPieces {
 
     public void objRock() {
     }

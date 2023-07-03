@@ -3,9 +3,9 @@ package Minigames.chess;//Standard chess board which can be used for chess, drau
 import java.awt.*;
 import java.util.Vector;
 
-public class objChessBoard extends Canvas {
+public class ObjChessBoard extends Canvas {
 
-    protected objPaintInstruction currentInstruction = null;
+    protected ObjPaintInstruction currentInstruction = null;
     protected Vector vecPaintInstructions = new Vector();
 
     public void chessBoard() {
@@ -25,7 +25,7 @@ public class objChessBoard extends Canvas {
             g.fillRect(0, 450, 500, 50); //South border
             g.fillRect(450, 0, 50, 500); //East border
 
-            currentInstruction = new objPaintInstruction(0, 0, 8);
+            currentInstruction = new ObjPaintInstruction(0, 0, 8);
             vecPaintInstructions.addElement(currentInstruction);
 
         }
@@ -35,7 +35,7 @@ public class objChessBoard extends Canvas {
 
         for (int i = 0; i < vecPaintInstructions.size(); i++) {
 
-            currentInstruction = (objPaintInstruction) vecPaintInstructions.elementAt(i);
+            currentInstruction = (ObjPaintInstruction) vecPaintInstructions.elementAt(i);
             int startRow = currentInstruction.getStartRow();
             int startColumn = currentInstruction.getStartColumn();
             int rowCells = currentInstruction.getRowCells();

@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 
-public class Main extends Application {
+public class Main2 extends Application {
 
     // Games
     public Chess chess;

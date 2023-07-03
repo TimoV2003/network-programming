@@ -7,18 +7,18 @@ import java.util.ArrayList;
 
 public class TicTacToePacket implements Serializable {
     boolean xTurn;
-    ArrayList<Button> buttons;
+    ArrayList<String> strings;
 
-    public TicTacToePacket(boolean xTurn, ArrayList<Button> buttons) {
+    public TicTacToePacket(boolean xTurn, ArrayList<String> strings) {
         this.xTurn = xTurn;
-        this.buttons = buttons;
+        this.strings = strings;
     }
 
     public boolean isxTurn() {
         return xTurn;
     }
 
-    public ArrayList<Button> getButtons() {
-        return buttons;
+    public ArrayList<String> getStrings() {
+        return strings;
     }
 }

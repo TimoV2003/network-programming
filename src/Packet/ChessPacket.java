@@ -1,19 +1,19 @@
 package Packet;
 
-import Minigames.chess.objCellMatrix;
+import Minigames.chess.ObjCellMatrix;
 
 import java.io.Serializable;
 
 public class ChessPacket implements Serializable {
-    public objCellMatrix cellMatrix;
+    public ObjCellMatrix cellMatrix;
     public int currentPlayer;
 
-    public ChessPacket(objCellMatrix cellMatrix, int currentPlayer) {
+    public ChessPacket(ObjCellMatrix cellMatrix, int currentPlayer) {
         this.cellMatrix = cellMatrix;
         this.currentPlayer = currentPlayer;
     }
 
-    public objCellMatrix getCellMatrix() {
+    public ObjCellMatrix getCellMatrix() {
         return cellMatrix;
     }
 

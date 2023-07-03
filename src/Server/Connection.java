@@ -1,9 +1,6 @@
 package Server;
 
-import Packet.Game;
-import Packet.ChessPacket;
-import Packet.GameSelection;
-import Packet.Login;
+import Packet.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -49,6 +46,13 @@ public class Connection {
                     for (Connection connection : connections) {
                         if (connection != this) {
                             connection.sendPacket(chessPacket);
+                        }
+                    }
+                } else if (packet instanceof TicTacToePacket) {
+                    TicTacToePacket ticTacToePacket = (TicTacToePacket) packet;
+                    for (Connection connection : connections){
+                        if (connection != this){
+                            connection.sendPacket(ticTacToePacket);
                         }
                     }
                 }

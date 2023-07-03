@@ -4,7 +4,7 @@ import java.awt.*;
 import java.io.*;
 import javax.swing.ImageIcon;
 
-public class objCreateAppletImage {
+public class ObjCreateAppletImage {
 
     private String strErrorMsg = "";
 

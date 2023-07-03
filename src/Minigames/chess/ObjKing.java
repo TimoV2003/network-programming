@@ -1,6 +1,6 @@
 package Minigames.chess;
 
-public class objKing extends objChessPieces {
+public class ObjKing extends ObjChessPieces {
 
     public void objKing() {
     }

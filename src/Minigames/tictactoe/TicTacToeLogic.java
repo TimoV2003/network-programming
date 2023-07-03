@@ -2,6 +2,7 @@ package Minigames.tictactoe;
 
 import Packet.ChessPacket;
 import Packet.TicTacToePacket;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,11 +12,12 @@ import sun.plugin2.liveconnect.ArgumentHelper;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TicTacToeLogic {
+public class TicTacToeLogic implements Serializable {
     private String player1;
     private String player2;
     private String player;
@@ -25,6 +27,7 @@ public class TicTacToeLogic {
     private boolean xTurn = true;
     private boolean playerIsX = true;
     private ArrayList<Button> buttons;
+    private ArrayList<String> strings;
     private HBox row1 = new HBox();
     private HBox row2 = new HBox();
     private HBox row3 = new HBox();
@@ -36,8 +39,10 @@ public class TicTacToeLogic {
         this.player = player;
         this.objectOutputStream = objectOutputStream;
         buttons = new ArrayList<>();
+        strings = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
-            Button button = new Button(" ");
+            strings.add(" ");
+            Button button = new Button(strings.get(i));
             button.setStyle("-fx-font-size: 24px; -fx-min-width: 80px; -fx-min-height: 80px;");
             buttons.add(button);
         }
@@ -49,21 +54,23 @@ public class TicTacToeLogic {
     }
 
     public void tictactoeLogic() {
-        for (Button button : buttons) {
+        for (int i = 0; i < strings.size(); i++) {
+            final int index = i;
+            Button button = buttons.get(i);
             button.setOnAction(e -> {
-                if (button.getText().contains(" ")) {
+                if (strings.get(index).contains(" ")) {
                     if (xTurn && playerIsX) {
-                        button.setText("X");
-                        status.setText(player2 + "'s turn");
+                        strings.set(index, "X");
+                        button.setText(strings.get(index));
                         xTurn = !xTurn;
-                        checkGameStatus();
                         sendPacket();
-                    } else if(!xTurn && !playerIsX) {
-                        button.setText("O");
-                        status.setText(player1 + "'s turn");
+                        checkGameStatus();
+                    } else if (!xTurn && !playerIsX) {
+                        strings.set(index, "O");
+                        button.setText(strings.get(index));
                         xTurn = !xTurn;
-                        checkGameStatus();
                         sendPacket();
+                        checkGameStatus();
                     } else{
                         System.out.println("not your turn");
                     }
@@ -74,7 +81,8 @@ public class TicTacToeLogic {
 
     public void sendPacket() {
         try {
-            objectOutputStream.writeObject(new TicTacToePacket(xTurn, buttons));
+            objectOutputStream.writeObject(new TicTacToePacket(xTurn, strings));
+            System.out.println("Package has been sent with succes");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,6 +151,10 @@ public class TicTacToeLogic {
         row3.getChildren().addAll(buttons.get(6), buttons.get(7), buttons.get(8));
         board.getChildren().addAll(status, row1, row2, row3);
 
+        for (int i = 0; i < strings.size(); i++) {
+            buttons.get(i).setText(strings.get(i));
+        }
+
         return new Scene(board);
     }
 
@@ -150,7 +162,14 @@ public class TicTacToeLogic {
         this.xTurn = xTurn;
     }
 
-    public void setButtons(ArrayList<Button> buttons) {
-        this.buttons = buttons;
+    public void setStrings(ArrayList<String> strings) {
+        this.strings = strings;
+
+        Platform.runLater(() -> {
+            for (int i = 0; i < this.strings.size(); i++) {
+                buttons.get(i).setText(this.strings.get(i));
+            }
+            checkGameStatus();
+        });
     }
 }
