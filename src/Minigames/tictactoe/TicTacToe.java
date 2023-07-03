@@ -3,6 +3,7 @@ package Minigames.tictactoe;
 import javafx.embed.swing.JFXPanel;
 
 import javax.swing.*;
+import java.io.ObjectOutputStream;
 
 public class TicTacToe extends JFrame {
 
@@ -12,14 +13,17 @@ public class TicTacToe extends JFrame {
     String player2;
     String player;
 
-    public TicTacToe(String player1, String player2, String player) {
+    ObjectOutputStream objectOutputStream;
+
+    public TicTacToe(String player1, String player2, String player, ObjectOutputStream objectOutputStream) {
         this.player1 = player1;
         this.player2 = player2;
         this.player = player;
+        this.objectOutputStream = objectOutputStream;
     }
     public void launch() {
         JFrame frame = new JFrame("Tic Tac Toe");
-        tttl = new TicTacToeLogic(player1, player2, player);
+        tttl = new TicTacToeLogic(player1, player2, player, objectOutputStream);
 
 
         startTicTacToe(tttl);

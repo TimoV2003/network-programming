@@ -1,11 +1,16 @@
 package Minigames.tictactoe;
 
+import Packet.ChessPacket;
+import Packet.TicTacToePacket;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import sun.plugin2.liveconnect.ArgumentHelper;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +19,8 @@ public class TicTacToeLogic {
     private String player1;
     private String player2;
     private String player;
+
+    private ObjectOutputStream objectOutputStream;
     private Label status;
     private boolean xTurn = true;
     private boolean playerIsX = true;
@@ -23,10 +30,11 @@ public class TicTacToeLogic {
     private HBox row3 = new HBox();
     private VBox board = new VBox();
 
-    public TicTacToeLogic(String player1, String player2, String player) {
+    public TicTacToeLogic(String player1, String player2, String player, ObjectOutputStream objectOutputStream) {
         this.player1 = player1;
         this.player2 = player2;
         this.player = player;
+        this.objectOutputStream = objectOutputStream;
         buttons = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             Button button = new Button(" ");
@@ -49,16 +57,26 @@ public class TicTacToeLogic {
                         status.setText(player2 + "'s turn");
                         xTurn = !xTurn;
                         checkGameStatus();
+                        sendPacket();
                     } else if(!xTurn && !playerIsX) {
                         button.setText("O");
                         status.setText(player1 + "'s turn");
                         xTurn = !xTurn;
                         checkGameStatus();
+                        sendPacket();
                     } else{
                         System.out.println("not your turn");
                     }
                 }
             });
+        }
+    }
+
+    public void sendPacket() {
+        try {
+            objectOutputStream.writeObject(new TicTacToePacket(xTurn, buttons));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

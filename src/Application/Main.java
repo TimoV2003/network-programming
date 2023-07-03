@@ -177,7 +177,7 @@ public class Main extends Application {
                             chess.launch();
                             break;
                         case TIC_TAC_TOE:
-                            ticTacToe = new TicTacToe(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player);
+                            ticTacToe = new TicTacToe(gameInnit.getPlayer1Name(), gameInnit.getPlayer2Name(), player, objectOutputStream);
                             ticTacToe.launch();
                             break;
                     }
