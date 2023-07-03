@@ -39,7 +39,7 @@ public class Main extends Application {
 
 
     // GUI
-    private Label usernameLabel = new Label();
+    private final Label usernameLabel = new Label();
 
     // Streams
     private ObjectInputStream objectInputStream;

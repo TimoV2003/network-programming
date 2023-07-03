@@ -13,22 +13,26 @@ public class WindowChessBoard extends ObjChessBoard implements MouseListener, Mo
 
     private final int refreshRate = 4; //Amount of pixels moved before screen is refreshed
 
-    private Image[][] imgPlayer = new Image[2][6];
-    private String[] strPlayerName = {"Player 1", "Player 2"};
+    private final Image[][] imgPlayer = new Image[2][6];
+    private final String[] strPlayerName = {"Player 1", "Player 2"};
     private String strStatusMsg = "";
     private ObjCellMatrix cellMatrix = new ObjCellMatrix();
-    private ObjectOutputStream objectOutputStream;
+    private final ObjectOutputStream objectOutputStream;
     private int currentPlayer = 1, startRow = 0, startColumn = 0, pieceBeingDragged = 0;
-    private int thisPlayer;
-    private int startingX = 0, startingY = 0, currentX = 0, currentY = 0, refreshCounter = 0;
+    private final int thisPlayer;
+    private final int startingX = 0;
+    private final int startingY = 0;
+    private int currentX = 0;
+    private int currentY = 0;
+    private int refreshCounter = 0;
     private boolean firstTime = true, hasWon = false, isDragging = false;
 
-    private ObjPawn pawnObject = new ObjPawn();
-    private ObjRock rockObject = new ObjRock();
-    private ObjKnight knightObject = new ObjKnight();
-    private ObjBishop bishopObject = new ObjBishop();
-    private ObjQueen queenObject = new ObjQueen();
-    private ObjKing kingObject = new ObjKing();
+    private final ObjPawn pawnObject = new ObjPawn();
+    private final ObjRock rockObject = new ObjRock();
+    private final ObjKnight knightObject = new ObjKnight();
+    private final ObjBishop bishopObject = new ObjBishop();
+    private final ObjQueen queenObject = new ObjQueen();
+    private final ObjKing kingObject = new ObjKing();
 
 
     public WindowChessBoard(String player1Name, String player2Name, String player, ObjectOutputStream objectOutputStream) {
@@ -53,9 +57,9 @@ public class WindowChessBoard extends ObjChessBoard implements MouseListener, Mo
         if (hasWon) {
             return "Congrats " + strPlayerName[currentPlayer - 1] + ", you are the winner!";
         } else if (firstTime) {
-            return "" + strPlayerName[0] + " you are red, " + strPlayerName[1] + " you are blue. Press new game to start";
+            return strPlayerName[0] + " you are red, " + strPlayerName[1] + " you are blue. Press new game to start";
         } else {
-            return "" + strPlayerName[currentPlayer - 1] + " move";
+            return strPlayerName[currentPlayer - 1] + " move";
         }
 
     }
@@ -242,7 +246,7 @@ public class WindowChessBoard extends ObjChessBoard implements MouseListener, Mo
                     }
 
                 }
-                while (canPass == false);
+                while (!canPass);
 
                 cellMatrix.setPieceCell(newDesRow, newDesColumn, newPiece);
 

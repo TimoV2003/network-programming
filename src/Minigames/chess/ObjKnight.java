@@ -29,15 +29,11 @@ public class ObjKnight extends ObjChessPieces {
         } else if (desRow == (startRow - 1) && desColumn == (startColumn + 2)) //1N, 2W
         {
             return true;
-        } else if (desRow == (startRow + 1) && desColumn == (startColumn - 2)) //1S, 2E
+        } else //1S, 2W
+            if (desRow == (startRow + 1) && desColumn == (startColumn - 2)) //1S, 2E
         {
             return true;
-        } else if (desRow == (startRow + 1) && desColumn == (startColumn + 2)) //1S, 2W
-        {
-            return true;
-        }
-
-        return false;
+        } else return desRow == (startRow + 1) && desColumn == (startColumn + 2);
 
     }
 

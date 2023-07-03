@@ -10,7 +10,7 @@ public class Connection {
     private Connection[] connections;
     private final ObjectOutputStream objectOutputStream;
     private final ObjectInputStream objectInputStream;
-    private Thread t;
+    private final Thread t;
     private String nickName;
     private Boolean gameSelected = false;
     private Game game;

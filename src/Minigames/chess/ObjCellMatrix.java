@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class ObjCellMatrix implements Serializable {
 
-    private int[][] playerMatrix = new int[8][8]; //Stores which player is in a cell. 0 empty, 1 player one, 2 player two
-    private int[][] pieceMatrix = new int[8][8]; //Stores which piece is in a cell. 0 pawn, 1 rock, 2 knight, 3 bishop, 4 queen, 5 king, 6 empty
+    private final int[][] playerMatrix = new int[8][8]; //Stores which player is in a cell. 0 empty, 1 player one, 2 player two
+    private final int[][] pieceMatrix = new int[8][8]; //Stores which piece is in a cell. 0 pawn, 1 rock, 2 knight, 3 bishop, 4 queen, 5 king, 6 empty
 
     public void objCellMatrix() {
     }

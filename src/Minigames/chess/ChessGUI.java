@@ -12,10 +12,10 @@ public class ChessGUI implements WindowFocusListener {
     private ObjCreateAppletImage createImage;
     private JLabel lblPlayerOne, lblPlayerTwo;
     //	private String[] strRedPieces = {"redPawn.gif","redRock.gif","redKnight.gif","redBishop.gif","redQueen.gif","redKing.gif"};
-    private String[] strRedPieces = {"whitePawn.gif", "whiteRock.gif", "whiteKnight.gif", "whiteBishop.gif", "whiteQueen.gif", "whiteKing.gif"};
+    private final String[] strRedPieces = {"whitePawn.gif", "whiteRock.gif", "whiteKnight.gif", "whiteBishop.gif", "whiteQueen.gif", "whiteKing.gif"};
     //	private String[] strBluePieces = {"bluePawn.gif","blueRock.gif","blueKnight.gif","blueBishop.gif","blueQueen.gif","blueKing.gif"};
-    private String[] strBluePieces = {"blackPawn.gif", "blackRock.gif", "blackKnight.gif", "blackBishop.gif", "blackQueen.gif", "blackKing.gif"};
-    private Color clrBlue = new Color(75, 141, 221);
+    private final String[] strBluePieces = {"blackPawn.gif", "blackRock.gif", "blackKnight.gif", "blackBishop.gif", "blackQueen.gif", "blackKing.gif"};
+    private final Color clrBlue = new Color(75, 141, 221);
     private MediaTracker mt;
 
     public void chessGUI() {

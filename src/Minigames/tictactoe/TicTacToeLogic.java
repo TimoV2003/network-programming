@@ -18,20 +18,20 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TicTacToeLogic implements Serializable {
-    private String player1;
-    private String player2;
-    private String player;
+    private final String player1;
+    private final String player2;
+    private final String player;
 
-    private ObjectOutputStream objectOutputStream;
+    private final ObjectOutputStream objectOutputStream;
     private Label status;
     private boolean xTurn = true;
     private boolean playerIsX = true;
-    private ArrayList<Button> buttons;
+    private final ArrayList<Button> buttons;
     private ArrayList<String> strings;
-    private HBox row1 = new HBox();
-    private HBox row2 = new HBox();
-    private HBox row3 = new HBox();
-    private VBox board = new VBox();
+    private final HBox row1 = new HBox();
+    private final HBox row2 = new HBox();
+    private final HBox row3 = new HBox();
+    private final VBox board = new VBox();
 
     public TicTacToeLogic(String player1, String player2, String player, ObjectOutputStream objectOutputStream) {
         this.player1 = player1;

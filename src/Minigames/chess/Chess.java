@@ -1,9 +1,11 @@
-package Minigames.chess;//Author: ^-^ Veerle ^-^
+//Author: ^-^ Veerle ^-^
+//Blue and red chess piece images from http://world.std.com/~wij/fixation/chess-sets.html
+
+package Minigames.chess;
 
 import javax.swing.JFrame;
 import java.io.ObjectOutputStream;
 
-//Chess piece images from http://world.std.com/~wij/fixation/chess-sets.html
 
 public class Chess extends JFrame {
     String player1Name;

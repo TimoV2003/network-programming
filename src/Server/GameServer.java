@@ -5,10 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class GameServer {
-    private static int PORT = 8888;
+    private static final int PORT = 8888;
     private static final int MAX_CLIENTS = 2;
     private static int connectedClients = 0;
-    private static Connection[] connections = new Connection[MAX_CLIENTS];
+    private static final Connection[] connections = new Connection[MAX_CLIENTS];
 
     private static Boolean gameServerState = true;
 
