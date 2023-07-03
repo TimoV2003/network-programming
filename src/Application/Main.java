@@ -188,7 +188,9 @@ public class Main extends Application {
                     chess.getChessGUI().getMainChessBoard().setCurrentPlayer(chessPacket.getCurrentPlayer());
 
                 } else if (packet instanceof TicTacToePacket){
-
+                    TicTacToePacket ticTacToePacket = (TicTacToePacket) packet;
+                    ticTacToe.getTicTacToeLogic().setButtons(ticTacToePacket.getButtons());
+                    ticTacToe.getTicTacToeLogic().setxTurn(ticTacToePacket.isxTurn());
                 }
             }
         } catch (Exception e) {

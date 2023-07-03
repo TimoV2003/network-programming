@@ -45,4 +45,8 @@ public class TicTacToe extends JFrame {
         this.tttl = tttl;
         startTicTacToe(this.tttl);
     }
+
+    public TicTacToeLogic getTicTacToeLogic() {
+        return tttl;
+    }
 }

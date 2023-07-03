@@ -13,4 +13,12 @@ public class TicTacToePacket implements Serializable {
         this.xTurn = xTurn;
         this.buttons = buttons;
     }
+
+    public boolean isxTurn() {
+        return xTurn;
+    }
+
+    public ArrayList<Button> getButtons() {
+        return buttons;
+    }
 }

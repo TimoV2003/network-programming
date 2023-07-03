@@ -127,4 +127,12 @@ public class TicTacToeLogic {
 
         return new Scene(board);
     }
+
+    public void setxTurn(boolean xTurn) {
+        this.xTurn = xTurn;
+    }
+
+    public void setButtons(ArrayList<Button> buttons) {
+        this.buttons = buttons;
+    }
 }
